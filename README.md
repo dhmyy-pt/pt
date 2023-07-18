@@ -56,6 +56,9 @@ Mock测试模式请运行: npm run start
 
 ## 相关技术文档
 
+### 后端说明文档
+http://doc.ruoyi.vip/ruoyi-cloud/
+
 ### TypeScript
 https://www.tslang.cn/docs/home.html
 
