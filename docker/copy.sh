@@ -9,12 +9,12 @@ usage() {
 
 # copy sql
 echo "begin copy sql "
-cp ../sql/ry_20230223.sql ./mysql/db
+cp ../sql/ry_20230706.sql ./mysql/db
 cp ../sql/ry_config_20220929.sql ./mysql/db
 
 # copy html
 echo "begin copy html "
-cp -r ../ruoyi-ui/dist/** ./nginx/html/dist
+cp -r ../react-ui/dist/** ./nginx/html/dist
 
 
 # copy jar
