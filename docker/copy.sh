@@ -9,6 +9,7 @@ usage() {
 
 # copy sql
 echo "begin copy sql "
+mkdir -p ./mysql/db
 cp ../sql/ry_20230706.sql ./mysql/db
 cp ../sql/ry_config_20220929.sql ./mysql/db
 
