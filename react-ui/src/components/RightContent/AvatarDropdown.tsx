@@ -1,62 +1,46 @@
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { history, useModel } from '@umijs/max';
-import { Avatar, Spin } from 'antd';
-import { setAlpha } from '@ant-design/pro-components';
+import { Spin } from 'antd';
+import { createStyles } from 'antd-style';
 import { stringify } from 'querystring';
 import type { MenuInfo } from 'rc-menu/lib/interface';
 import React, { useCallback } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
 import { setRemoteMenu } from '@/services/session';
-import { PageEnum } from '@/enums/pagesEnums';
 import { clearSessionToken } from '@/access';
 import { logout } from '@/services/system/auth';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
+  children?: React.ReactNode;
 };
 
-const Name = () => {
+export const AvatarName = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
+  return <span className="anticon">{currentUser?.nickName}</span>;
+};
 
-  const nameClassName = useEmotionCss(({ token }) => {
-    return {
-      width: '70px',
+const useStyles = createStyles(({ token }) => {
+  return {
+    action: {
+      display: 'flex',
       height: '48px',
+      marginLeft: 'auto',
       overflow: 'hidden',
-      lineHeight: '48px',
-      whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis',
-      [`@media only screen and (max-width: ${token.screenMD}px)`]: {
-        display: 'none',
+      alignItems: 'center',
+      padding: '0 8px',
+      cursor: 'pointer',
+      borderRadius: token.borderRadius,
+      '&:hover': {
+        backgroundColor: token.colorBgTextHover,
       },
-    };
-  });
+    },
+  };
+});
 
-  return <span className={`${nameClassName} anticon`}>{currentUser?.nickName}</span>;
-};
-
-const AvatarLogo = () => {
-  const { initialState } = useModel('@@initialState');
-  const { currentUser } = initialState || {};
-
-  const avatarClassName = useEmotionCss(({ token }) => {
-    return {
-      marginRight: '8px',
-      color: token.colorPrimary,
-      verticalAlign: 'top',
-      background: setAlpha(token.colorBgContainer, 0.85),
-      [`@media only screen and (max-width: ${token.screenMD}px)`]: {
-        margin: 0,
-      },
-    };
-  });
-  return <Avatar size="small" className={avatarClassName} src={currentUser?.avatar} alt="avatar" />;
-};
-
-const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
+export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, children }) => {
   /**
    * 退出登录，并且将当前的 url 保存
    */
@@ -69,30 +53,17 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     /** 此方法会跳转到 redirect 参数所在的位置 */
     const redirect = urlParams.get('redirect');
     // Note: There may be security issues, please note
-    if (window.location.pathname !== PageEnum.LOGIN && !redirect) {
+    if (window.location.pathname !== '/user/login' && !redirect) {
       history.replace({
-        pathname: PageEnum.LOGIN,
+        pathname: '/user/login',
         search: stringify({
           redirect: pathname + search,
         }),
       });
     }
   };
-  const actionClassName = useEmotionCss(({ token }) => {
-    return {
-      display: 'flex',
-      height: '48px',
-      marginLeft: 'auto',
-      overflow: 'hidden',
-      alignItems: 'center',
-      padding: '0 8px',
-      cursor: 'pointer',
-      borderRadius: token.borderRadius,
-      '&:hover': {
-        backgroundColor: token.colorBgTextHover,
-      },
-    };
-  });
+  const { styles } = useStyles();
+
   const { initialState, setInitialState } = useModel('@@initialState');
 
   const onMenuClick = useCallback(
@@ -111,7 +82,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   );
 
   const loading = (
-    <span className={actionClassName}>
+    <span className={styles.action}>
       <Spin
         size="small"
         style={{
@@ -165,12 +136,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         items: menuItems,
       }}
     >
-      <span className={actionClassName}>
-        <AvatarLogo />
-        <Name />
-      </span>
+      {children}
     </HeaderDropdown>
   );
 };
-
-export default AvatarDropdown;

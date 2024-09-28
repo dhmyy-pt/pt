@@ -47,10 +47,7 @@ declare namespace API {
     code: number;
     msg?: string;
     type?: string;
-    data?: {
-      access_token?: string;
-      expires_in?: number;
-    }
+    token?: string;
   };
 
   type NoticeIconItem = {

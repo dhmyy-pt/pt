@@ -1,7 +1,7 @@
 import { request } from '@umijs/max';
 
 export async function getCaptchaImg(params?: Record<string, any>, options?: Record<string, any>) {
-  return request('/api/code', {
+  return request('/api/captchaImage', {
     method: 'GET',
     params: {
       ...params,
@@ -15,7 +15,7 @@ export async function getCaptchaImg(params?: Record<string, any>, options?: Reco
 
 /** 登录接口 POST /api/login/account */
 export async function login(body: API.LoginParams, options?: Record<string, any>) {
-  return request<API.LoginResult>('/api/auth/login', {
+  return request<API.LoginResult>('/api/login', {
     method: 'POST',
     headers: {
       isToken: false,

@@ -135,7 +135,8 @@ const Login: React.FC = () => {
         });
         const current = new Date();
         const expireTime = current.setTime(current.getTime() + 1000 * 12 * 60 * 60);
-        setSessionToken(response.data?.access_token, response.data?.access_token, expireTime);
+        console.log('login response: ', response);
+        setSessionToken(response?.token, response?.token, expireTime);
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
         console.log('login ok');

@@ -28,7 +28,7 @@ function patchRouteItems(route: any, menu: any, parentPath: string) {
           }
         }
         if (!hasItem) {
-          newItem = {         
+          newItem = {
             path: menuItem.path,
             routes: [],
             children: []
@@ -83,7 +83,7 @@ export function patchRouteWithRemoteMenus(routes: any) {
 
 /** 获取当前的用户 GET /api/getUserInfo */
 export async function getUserInfo(options?: Record<string, any>) {
-  return request<API.UserInfoResult>('/api/system/user/getInfo', {
+  return request<API.UserInfoResult>('/api/getInfo', {
     method: 'GET',
     ...(options || {}),
   });
@@ -97,7 +97,7 @@ export async function refreshToken() {
 }
 
 export async function getRouters(): Promise<any> {
-  return request('/api/system/menu/getRouters');
+  return request('/api/getRouters');
 }
 
 export function convertCompatRouters(childrens: API.RoutersMenuItem[]): any[] {
