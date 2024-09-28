@@ -1,4 +1,5 @@
 import { request } from '@umijs/max';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 // 查询操作日志记录列表
 export async function getOperlogList(params?: API.Monitor.OperlogListParams) {
@@ -47,10 +48,13 @@ export async function removeOperlog(ids: string) {
   });
 }
 
+export async function cleanAllOperlog() {
+  return request<API.Result>(`/api/monitor/operlog/clean`, {
+    method: 'DELETE'
+  });
+}
+
 // 导出操作日志记录
 export function exportOperlog(params?: API.Monitor.OperlogListParams) {
-  return request<API.Result>(`/api/monitor/operlog/export`, {
-    method: 'GET',
-    params
-  });
+  return downLoadXlsx(`/api/monitor/operlog/export`, { params }, `operlog_${new Date().getTime()}.xlsx`);
 }

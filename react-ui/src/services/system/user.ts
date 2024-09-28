@@ -1,6 +1,7 @@
 import { formatTreeData } from '@/utils/tree';
 import { request } from '@umijs/max';
 import { DataNode } from 'antd/es/tree';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 // 查询用户信息列表
 export async function getUserList(params?: API.System.UserListParams, options?: { [key: string]: any }) {
@@ -56,11 +57,7 @@ export async function removeUser(ids: string, options?: { [key: string]: any }) 
 
 // 导出用户信息
 export function exportUser(params?: API.System.UserListParams, options?: { [key: string]: any }) {
-  return request<API.Result>(`/api/system/user/export`, {
-    method: 'GET',
-    params,
-    ...(options || {})
-  });
+  return downLoadXlsx(`/api/system/user/export`, { params }, `user_${new Date().getTime()}.xlsx`);
 }
 
 // 用户状态修改

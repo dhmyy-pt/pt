@@ -1,6 +1,7 @@
 import { request } from '@umijs/max';
 import { DictValueEnumObj } from '@/components/DictTag';
 import { HttpResult } from '@/enums/httpEnum';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 /* *
  *
@@ -102,10 +103,7 @@ export async function removeDictType(ids: string) {
 
 // 导出字典类型
 export function exportDictType(params?: API.System.DictTypeListParams) {
-  return request<API.Result>('/api/system/dict/type/export', {
-    method: 'GET',
-    params
-  });
+  return downLoadXlsx(`/api/system/dict/type/export`, { params }, `dict_type_${new Date().getTime()}.xlsx`);
 }
 
 // 获取字典选择框列表

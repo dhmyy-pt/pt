@@ -103,7 +103,7 @@ const handleRemoveOne = async (selectedRow: API.System.DictType) => {
 /**
  * 导出数据
  *
- * 
+ *
  */
 const handleExport = async () => {
   const hide = message.loading('正在导出');
@@ -121,7 +121,7 @@ const handleExport = async () => {
 
 
 const DictTableList: React.FC = () => {
-  const formTableRef = useRef<FormInstance>();  
+  const formTableRef = useRef<FormInstance>();
 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
@@ -277,7 +277,8 @@ const DictTableList: React.FC = () => {
             </Button>,
             <Button
               type="primary"
-              key="remove"              
+              key="remove"
+              danger
               hidden={selectedRows?.length === 0 || !access.hasPerms('system:dictType:remove')}
               onClick={async () => {
                 Modal.confirm({
@@ -292,7 +293,7 @@ const DictTableList: React.FC = () => {
                     }
                   },
                   onCancel() {},
-                }); 
+                });
               }}
             >
               <DeleteOutlined />
@@ -340,6 +341,7 @@ const DictTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('system:dictType:del')}
             onClick={async () => {
               Modal.confirm({

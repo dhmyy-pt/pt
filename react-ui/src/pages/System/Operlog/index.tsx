@@ -5,7 +5,7 @@ import type { FormInstance } from 'antd';
 import { Button, message, Modal } from 'antd';
 import { ActionType, FooterToolbar, PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
 import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { getOperlogList, removeOperlog, addOperlog, updateOperlog, exportOperlog } from '@/services/monitor/operlog';
+import { getOperlogList, removeOperlog, addOperlog, updateOperlog, cleanAllOperlog, exportOperlog } from '@/services/monitor/operlog';
 import UpdateForm from './detail';
 import { getDictValueEnum } from '@/services/system/dict';
 import DictTag from '@/components/DictTag';
@@ -79,12 +79,34 @@ const handleRemove = async (selectedRows: API.Monitor.Operlog[]) => {
     return false;
   }
 };
- 
+
+/**
+ * 清空所有记录
+ *
+ */
+const handleCleanAll = async () => {
+  const hide = message.loading('正在清空');
+  try {
+    const resp = await cleanAllOperlog();
+    hide();
+    if (resp.code === 200) {
+      message.success('清空成功，即将刷新');
+    } else {
+      message.error(resp.msg);
+    }
+    return true;
+  } catch (error) {
+    hide();
+    message.error('清空失败，请重试');
+    return false;
+  }
+};
+
 
 /**
  * 导出数据
  *
- * 
+ *
  */
 const handleExport = async () => {
   const hide = message.loading('正在导出');
@@ -247,6 +269,7 @@ const OperlogTableList: React.FC = () => {
             <Button
               type="primary"
               key="remove"
+              danger
               hidden={selectedRows?.length === 0 || !access.hasPerms('system:operlog:remove')}
               onClick={async () => {
                 Modal.confirm({
@@ -266,6 +289,30 @@ const OperlogTableList: React.FC = () => {
             >
               <DeleteOutlined />
               <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+            </Button>,
+            <Button
+              type="primary"
+              key="clean"
+              danger
+              hidden={!access.hasPerms('system:operlog:remove')}
+              onClick={async () => {
+                Modal.confirm({
+                  title: '是否确认清空所有数据项?',
+                  icon: <ExclamationCircleOutlined />,
+                  content: '请谨慎操作',
+                  async onOk() {
+                    const success = await handleCleanAll();
+                    if (success) {
+                      setSelectedRows([]);
+                      actionRef.current?.reloadAndRest?.();
+                    }
+                  },
+                  onCancel() { },
+                });
+              }}
+            >
+              <DeleteOutlined />
+              <FormattedMessage id="pages.searchTable.cleanAll" defaultMessage="清空" />
             </Button>,
             <Button
               type="primary"
@@ -309,6 +356,7 @@ const OperlogTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('system:operlog:del')}
             onClick={async () => {
               Modal.confirm({

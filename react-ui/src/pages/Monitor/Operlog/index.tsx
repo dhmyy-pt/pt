@@ -79,12 +79,12 @@ const handleRemove = async (selectedRows: API.Monitor.Operlog[]) => {
     return false;
   }
 };
- 
+
 
 /**
  * 导出数据
  *
- * 
+ *
  */
 const handleExport = async () => {
   const hide = message.loading('正在导出');
@@ -247,6 +247,7 @@ const OperlogTableList: React.FC = () => {
             <Button
               type="primary"
               key="remove"
+              danger
               hidden={selectedRows?.length === 0 || !access.hasPerms('system:operlog:remove')}
               onClick={async () => {
                 Modal.confirm({
@@ -309,6 +310,7 @@ const OperlogTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('system:operlog:del')}
             onClick={async () => {
               Modal.confirm({

@@ -1,5 +1,6 @@
 import { ContentType } from '@/enums/httpEnum';
 import { request } from '@umijs/max';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 // 查询角色信息列表
 export async function getRoleList(params?: API.System.RoleListParams) {
@@ -48,10 +49,7 @@ export async function removeRole(ids: string) {
 
 // 导出角色信息
 export function exportRole(params?: API.System.RoleListParams) {
-  return request<API.Result>(`/api/system/role/export`, {
-    method: 'GET',
-    params
-  });
+  return downLoadXlsx(`/api/system/role/export`, { params }, `role_${new Date().getTime()}.xlsx`);
 }
 
 // 获取角色菜单列表

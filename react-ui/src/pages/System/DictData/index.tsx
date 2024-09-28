@@ -323,6 +323,7 @@ const DictDataTableList: React.FC = () => {
             <Button
               type="primary"
               key="remove"
+              danger
               hidden={selectedRows?.length === 0 || !access.hasPerms('system:data:remove')}
               onClick={async () => {
                 Modal.confirm({
@@ -385,6 +386,7 @@ const DictDataTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('system:data:del')}
             onClick={async () => {
               Modal.confirm({

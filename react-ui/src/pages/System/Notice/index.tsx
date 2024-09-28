@@ -5,7 +5,7 @@ import type { FormInstance } from 'antd';
 import { Button, message, Modal } from 'antd';
 import { ActionType, FooterToolbar, PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
 import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { getNoticeList, removeNotice, addNotice, updateNotice, exportNotice } from '@/services/system/notice';
+import { getNoticeList, removeNotice, addNotice, updateNotice } from '@/services/system/notice';
 import UpdateForm from './edit';
 import { getDictValueEnum } from '@/services/system/dict';
 import DictTag from '@/components/DictTag';
@@ -100,28 +100,10 @@ const handleRemoveOne = async (selectedRow: API.System.Notice) => {
   }
 };
 
-/**
- * 导出数据
- *
- * 
- */
-const handleExport = async () => {
-  const hide = message.loading('正在导出');
-  try {
-    await exportNotice();
-    hide();
-    message.success('导出成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('导出失败，请重试');
-    return false;
-  }
-};
 
 
 const NoticeTableList: React.FC = () => {
-  const formTableRef = useRef<FormInstance>();  
+  const formTableRef = useRef<FormInstance>();
 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
@@ -137,16 +119,16 @@ const NoticeTableList: React.FC = () => {
   /** 国际化配置 */
   const intl = useIntl();
 
-  useEffect(() => {    
+  useEffect(() => {
     getDictValueEnum('sys_notice_type').then((data) => {
       setNoticeTypeOptions(data);
-    });    
+    });
     getDictValueEnum('sys_notice_status').then((data) => {
       setStatusOptions(data);
     });
   }, []);
 
-  const columns: ProColumns<API.System.Notice>[] = [  
+  const columns: ProColumns<API.System.Notice>[] = [
     {
       title: <FormattedMessage id="system.notice.notice_id" defaultMessage="公告编号" />,
       dataIndex: 'noticeId',
@@ -277,7 +259,8 @@ const NoticeTableList: React.FC = () => {
             </Button>,
             <Button
               type="primary"
-              key="remove"              
+              key="remove"
+              danger
               hidden={selectedRows?.length === 0 || !access.hasPerms('system:notice:remove')}
               onClick={async () => {
                 Modal.confirm({
@@ -292,22 +275,11 @@ const NoticeTableList: React.FC = () => {
                     }
                   },
                   onCancel() {},
-                }); 
+                });
               }}
             >
               <DeleteOutlined />
               <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
-            </Button>,
-            <Button
-              type="primary"
-              key="export"
-              hidden={!access.hasPerms('system:notice:export')}
-              onClick={async () => {
-                handleExport();
-              }}
-            >
-              <PlusOutlined />
-              <FormattedMessage id="pages.searchTable.export" defaultMessage="导出" />
             </Button>,
           ]}
           request={(params) =>
@@ -340,6 +312,7 @@ const NoticeTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('system:notice:del')}
             onClick={async () => {
               Modal.confirm({

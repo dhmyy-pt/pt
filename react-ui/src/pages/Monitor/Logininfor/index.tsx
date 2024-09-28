@@ -306,6 +306,7 @@ const LogininforTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('monitor:logininfor:remove')}
             onClick={async () => {
               Modal.confirm({

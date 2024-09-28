@@ -1,4 +1,5 @@
 import { request } from '@umijs/max';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 // 查询系统访问记录列表
 export async function getLogininforList(params?: API.Monitor.LogininforListParams) {
@@ -49,10 +50,7 @@ export async function removeLogininfor(ids: string) {
 
 // 导出系统访问记录
 export function exportLogininfor(params?: API.Monitor.LogininforListParams) {
-  return request<API.Result>(`/api/monitor/logininfor/export`, {
-    method: 'GET',
-    params
-  });
+  return downLoadXlsx(`/api/monitor/logininfor/export`, { params }, `logininfor_${new Date().getTime()}.xlsx`);
 }
 
 // 解锁用户登录状态

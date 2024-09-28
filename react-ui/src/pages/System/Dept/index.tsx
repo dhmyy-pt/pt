@@ -5,7 +5,7 @@ import type { FormInstance } from 'antd';
 import { Button, message, Modal } from 'antd';
 import { ActionType, FooterToolbar, PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
 import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { getDeptList, removeDept, addDept, updateDept, exportDept, getDeptListExcludeChild } from '@/services/system/dept';
+import { getDeptList, removeDept, addDept, updateDept, getDeptListExcludeChild } from '@/services/system/dept';
 import UpdateForm from './edit';
 import { getDictValueEnum } from '@/services/system/dict';
 import { buildTreeData } from '@/utils/tree';
@@ -101,28 +101,9 @@ const handleRemoveOne = async (selectedRow: API.System.Dept) => {
   }
 };
 
-/**
- * 导出数据
- *
- * 
- */
-const handleExport = async () => {
-  const hide = message.loading('正在导出');
-  try {
-    await exportDept();
-    hide();
-    message.success('导出成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('导出失败，请重试');
-    return false;
-  }
-};
-
 
 const DeptTableList: React.FC = () => {
-  const formTableRef = useRef<FormInstance>();  
+  const formTableRef = useRef<FormInstance>();
 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
@@ -139,7 +120,7 @@ const DeptTableList: React.FC = () => {
   const intl = useIntl();
 
   useEffect(() => {
-    getDictValueEnum('sys_normal_disable').then((data) => {      
+    getDictValueEnum('sys_normal_disable').then((data) => {
       setStatusOptions(data);
     });
   }, []);
@@ -258,7 +239,8 @@ const DeptTableList: React.FC = () => {
             </Button>,
             <Button
               type="primary"
-              key="remove"              
+              key="remove"
+              danger
               hidden={selectedRows?.length === 0 || !access.hasPerms('system:dept:remove')}
               onClick={async () => {
                 Modal.confirm({
@@ -273,22 +255,11 @@ const DeptTableList: React.FC = () => {
                     }
                   },
                   onCancel() {},
-                }); 
+                });
               }}
             >
               <DeleteOutlined />
               <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
-            </Button>,
-            <Button
-              type="primary"
-              key="export"
-              hidden={!access.hasPerms('system:dept:export')}
-              onClick={async () => {
-                handleExport();
-              }}
-            >
-              <PlusOutlined />
-              <FormattedMessage id="pages.searchTable.export" defaultMessage="导出" />
             </Button>,
           ]}
           request={(params) =>
@@ -321,6 +292,7 @@ const DeptTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('system:dept:del')}
             onClick={async () => {
               Modal.confirm({

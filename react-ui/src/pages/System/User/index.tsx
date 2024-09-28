@@ -22,7 +22,7 @@ const { confirm } = Modal;
  *
  * @author whiteshader@163.com
  * @datetime  2023/02/06
- * 
+ *
  * */
 
 /**
@@ -102,7 +102,7 @@ const handleRemoveOne = async (selectedRow: API.System.User) => {
 /**
  * 导出数据
  *
- * 
+ *
  */
 const handleExport = async () => {
   const hide = message.loading('正在导出');
@@ -178,7 +178,7 @@ const UserTableList: React.FC = () => {
       },
     });
   };
-  
+
   const fetchUserInfo = async (userId: number) => {
     const res = await getUser(userId);
     setPostIds(res.postIds);
@@ -401,6 +401,7 @@ const UserTableList: React.FC = () => {
               <Button
                 type="primary"
                 key="remove"
+                danger
                 hidden={selectedRows?.length === 0 || !access.hasPerms('system:user:remove')}
                 onClick={async () => {
                   Modal.confirm({
@@ -464,6 +465,7 @@ const UserTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('system:user:del')}
             onClick={async () => {
               Modal.confirm({

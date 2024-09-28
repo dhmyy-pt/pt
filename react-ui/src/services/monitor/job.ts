@@ -1,4 +1,5 @@
 import { request } from '@umijs/max';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 /**
  * 定时任务调度 API
@@ -56,10 +57,7 @@ export async function removeJob(ids: string) {
 
 // 导出定时任务调度
 export function exportJob(params?: API.Monitor.JobListParams) {
-  return request<API.Result>(`/api/monitor/job/export`, {
-    method: 'GET',
-    params
-  });
+  return downLoadXlsx(`/api/monitor/job/export`, { params }, `job_${new Date().getTime()}.xlsx`);
 }
 
 // 定时任务立即执行一次

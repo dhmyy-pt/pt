@@ -4,7 +4,7 @@ import { useIntl, FormattedMessage, useAccess } from '@umijs/max';
 import { Button, message, Modal } from 'antd';
 import { ActionType, FooterToolbar, PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
 import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { getMenuList, removeMenu, addMenu, updateMenu, exportMenu } from '@/services/system/menu';
+import { getMenuList, removeMenu, addMenu, updateMenu } from '@/services/system/menu';
 import UpdateForm from './edit';
 import { getDictValueEnum } from '@/services/system/dict';
 import { buildTreeData } from '@/utils/tree';
@@ -85,25 +85,6 @@ const handleRemoveOne = async (selectedRow: API.System.Menu) => {
   }
 };
 
-/**
- * 导出数据
- *
- * 
- */
-const handleExport = async () => {
-  const hide = message.loading('正在导出');
-  try {
-    await exportMenu();
-    hide();
-    message.success('导出成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('导出失败，请重试');
-    return false;
-  }
-};
-
 
 const MenuTableList: React.FC = () => {
 
@@ -123,7 +104,7 @@ const MenuTableList: React.FC = () => {
   const intl = useIntl();
 
   useEffect(() => {
-    getDictValueEnum('sys_show_hide').then((data) => {  
+    getDictValueEnum('sys_show_hide').then((data) => {
       setVisibleOptions(data);
     });
     getDictValueEnum('sys_normal_disable').then((data) => {
@@ -131,7 +112,7 @@ const MenuTableList: React.FC = () => {
     });
   }, []);
 
-  const columns: ProColumns<API.System.Menu>[] = [  
+  const columns: ProColumns<API.System.Menu>[] = [
     {
       title: <FormattedMessage id="system.menu.menu_name" defaultMessage="菜单名称" />,
       dataIndex: 'menuName',
@@ -245,7 +226,8 @@ const MenuTableList: React.FC = () => {
             </Button>,
             <Button
               type="primary"
-              key="remove"              
+              key="remove"
+              danger
               hidden={selectedRows?.length === 0 || !access.hasPerms('system:menu:remove')}
               onClick={async () => {
                 Modal.confirm({
@@ -260,22 +242,11 @@ const MenuTableList: React.FC = () => {
                     }
                   },
                   onCancel() {},
-                }); 
+                });
               }}
             >
               <DeleteOutlined />
               <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
-            </Button>,
-            <Button
-              type="primary"
-              key="export"
-              hidden={!access.hasPerms('system:menu:export')}
-              onClick={async () => {
-                handleExport();
-              }}
-            >
-              <PlusOutlined />
-              <FormattedMessage id="pages.searchTable.export" defaultMessage="导出" />
             </Button>,
           ]}
           request={(params) =>
@@ -313,6 +284,7 @@ const MenuTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('system:menu:del')}
             onClick={async () => {
               Modal.confirm({

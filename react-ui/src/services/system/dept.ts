@@ -1,4 +1,5 @@
-import { request } from '@umijs/max'; 
+import { request } from '@umijs/max';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 // 查询部门列表
 export async function getDeptList(params?: API.System.DeptListParams) {
@@ -51,13 +52,5 @@ export async function updateDept(params: API.System.Dept) {
 export async function removeDept(ids: string) {
   return request<API.Result>(`/api/system/dept/${ids}`, {
     method: 'DELETE'
-  });
-}
-
-// 导出部门
-export function exportDept(params?: API.System.DeptListParams) { 
-  return request<API.Result>(`/api/system/dept/export`, {
-    method: 'GET',
-    params
   });
 }

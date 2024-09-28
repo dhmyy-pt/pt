@@ -1,4 +1,5 @@
-import { request } from '@umijs/max'; 
+import { request } from '@umijs/max';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 // 查询菜单权限列表
 export async function getMenuList(params?: API.System.MenuListParams, options?: { [key: string]: any }) {
@@ -48,15 +49,6 @@ export async function updateMenu(params: API.System.Menu, options?: { [key: stri
 export async function removeMenu(ids: string, options?: { [key: string]: any }) {
   return request<API.Result>(`/api/system/menu/${ids}`, {
     method: 'DELETE',
-    ...(options || {})
-  });
-}
-
-// 导出菜单权限
-export function exportMenu(params?: API.System.MenuListParams, options?: { [key: string]: any }) { 
-  return request<API.Result>(`/api/system/menu/export`, {
-    method: 'GET',
-    params,
     ...(options || {})
   });
 }

@@ -207,7 +207,7 @@ const LogininforTableList: React.FC = () => {
               type="primary"
               key="clean"
               danger
-              hidden={selectedRows?.length === 0 || !access.hasPerms('monitor:logininfor:remove')}
+              hidden={!access.hasPerms('monitor:logininfor:remove')}
               onClick={async () => {
                 Modal.confirm({
                   title: '是否确认清空所有数据项?',
@@ -292,6 +292,7 @@ const LogininforTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('monitor:logininfor:remove')}
             onClick={async () => {
               Modal.confirm({

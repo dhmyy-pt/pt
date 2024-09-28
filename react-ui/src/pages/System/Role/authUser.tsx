@@ -182,6 +182,7 @@ const AuthUserTableList: React.FC = () => {
 						<Button
 							type="primary"
 							key="remove"
+              danger
 							hidden={selectedRows?.length === 0 || !access.hasPerms('system:role:remove')}
 							onClick={async () => {
 								Modal.confirm({

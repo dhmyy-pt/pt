@@ -1,4 +1,5 @@
-import { request } from '@umijs/max'; 
+import { request } from '@umijs/max';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 // 查询岗位信息列表
 export async function getPostList(params?: API.System.PostListParams) {
@@ -48,9 +49,6 @@ export async function removePost(ids: string) {
 }
 
 // 导出岗位信息
-export function exportPost(params?: API.System.PostListParams) { 
-  return request<API.Result>(`/api/system/post/export`, {
-    method: 'GET',
-    params
-  });
+export function exportPost(params?: API.System.PostListParams) {
+  return downLoadXlsx(`/api/system/post/export`, { params }, `post_${new Date().getTime()}.xlsx`);
 }

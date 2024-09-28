@@ -1,4 +1,5 @@
-import { request } from '@umijs/max'; 
+import { request } from '@umijs/max';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 // 查询通知公告列表
 export async function getNoticeList(params?: API.System.NoticeListParams) {
@@ -44,13 +45,5 @@ export async function updateNotice(params: API.System.Notice) {
 export async function removeNotice(ids: string) {
   return request<API.Result>(`/api/system/notice/${ids}`, {
     method: 'DELETE'
-  });
-}
-
-// 导出通知公告
-export function exportNotice(params?: API.System.NoticeListParams) { 
-  return request<API.Result>(`/api/system/notice/export`, {
-    method: 'GET',
-    params
   });
 }

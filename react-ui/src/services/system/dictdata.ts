@@ -1,4 +1,5 @@
 import { request } from '@umijs/max';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 // 查询字典数据列表
 export async function getDictDataList(
@@ -60,9 +61,5 @@ export function exportDictData(
   params?: API.System.DictDataListParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.Result>(`/api/system/dict/data/export`, {
-    method: 'GET',
-    params,
-    ...(options || {}),
-  });
+  return downLoadXlsx(`/api/system/dict/data/export`, { params }, `dict_data_${new Date().getTime()}.xlsx`);
 }

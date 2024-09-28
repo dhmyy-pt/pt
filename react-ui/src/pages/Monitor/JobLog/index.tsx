@@ -13,7 +13,7 @@ import DictTag from '@/components/DictTag';
 
 /**
  * 定时任务调度日志 List Page
- * 
+ *
  * @author whiteshader
  * @date 2023-02-07
  */
@@ -240,6 +240,7 @@ const JobLogTableList: React.FC = () => {
             <Button
               type="primary"
               key="remove"
+              danger
               hidden={selectedRows?.length === 0 || !access.hasPerms('monitor:job-log:remove')}
               onClick={async () => {
                 Modal.confirm({
@@ -303,6 +304,7 @@ const JobLogTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('monitor:job-log:del')}
             onClick={async () => {
               Modal.confirm({

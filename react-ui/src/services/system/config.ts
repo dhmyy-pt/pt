@@ -1,4 +1,5 @@
-import { request } from '@umijs/max'; 
+import { request } from '@umijs/max';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 // 查询参数配置列表
 export async function getConfigList(params?: API.System.ConfigListParams) {
@@ -48,11 +49,8 @@ export async function removeConfig(ids: string) {
 }
 
 // 导出参数配置
-export function exportConfig(params?: API.System.ConfigListParams) { 
-  return request<API.Result>(`/api/system/config/export`, {
-    method: 'GET',
-    params
-  });
+export function exportConfig(params?: API.System.ConfigListParams) {
+  return downLoadXlsx(`/api/system/config/export`, { params }, `config_${new Date().getTime()}.xlsx`);
 }
 
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { clearCacheAll, clearCacheKey, clearCacheName, getCacheValue, listCacheKey, listCacheName } from '@/services/monitor/cachelist';
 import { Button, Card, Col, Form, FormInstance, Input, message, Row, Table } from 'antd';
-import styles from './index.less';  
+import styles from './index.less';
 import { FormattedMessage } from '@umijs/max';
 import { ReloadOutlined } from '@ant-design/icons';
 import { ProForm } from '@ant-design/pro-components';
@@ -13,7 +13,7 @@ const { TextArea } = Input;
  *
  * @author whiteshader@163.com
  * @datetime  2022/06/27
- * 
+ *
  * */
 
 
@@ -62,8 +62,8 @@ const CacheList: React.FC = () => {
   const onClearAllFailed = (errorInfo: any) => {
     message.error('Failed:', errorInfo);
   };
-  
-  const refreshCacheNames = () => {    
+
+  const refreshCacheNames = () => {
     getCacheNames();
     message.success("刷新缓存列表成功");
   };
@@ -97,6 +97,7 @@ const CacheList: React.FC = () => {
           type="link"
           size="small"
           key="remove"
+          danger
           onClick={() => {
             clearCacheName(record.cacheName).then(res => {
               if(res.code === 200) {
@@ -136,6 +137,7 @@ const CacheList: React.FC = () => {
           type="link"
           size="small"
           key="remove"
+          danger
           onClick={() => {
             console.log(record)
             clearCacheKey(record.cacheKey).then(res => {

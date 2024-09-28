@@ -103,7 +103,7 @@ const handleRemoveOne = async (selectedRow: API.System.Config) => {
 /**
  * 导出数据
  *
- * 
+ *
  */
 const handleExport = async () => {
   const hide = message.loading('正在导出');
@@ -344,6 +344,7 @@ const ConfigTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('system:config:del')}
             onClick={async () => {
               Modal.confirm({

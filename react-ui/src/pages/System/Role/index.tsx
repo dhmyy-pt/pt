@@ -107,7 +107,7 @@ const handleRemoveOne = async (selectedRow: API.System.Role) => {
 /**
  * 导出数据
  *
- * 
+ *
  */
 const handleExport = async () => {
   const hide = message.loading('正在导出');
@@ -375,6 +375,7 @@ const RoleTableList: React.FC = () => {
             <Button
               type="primary"
               key="remove"
+              danger
               hidden={selectedRows?.length === 0 || !access.hasPerms('system:role:remove')}
               onClick={async () => {
                 Modal.confirm({
@@ -437,6 +438,7 @@ const RoleTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('system:role:del')}
             onClick={async () => {
               Modal.confirm({

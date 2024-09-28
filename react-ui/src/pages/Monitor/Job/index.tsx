@@ -13,7 +13,7 @@ import DictTag from '@/components/DictTag';
 
 /**
  * 定时任务调度 List Page
- * 
+ *
  * @author whiteshader
  * @date 2023-02-07
  */
@@ -334,6 +334,7 @@ const JobTableList: React.FC = () => {
             <Button
               type="primary"
               key="remove"
+              danger
               hidden={selectedRows?.length === 0 || !access.hasPerms('monitor:job:remove')}
               onClick={async () => {
                 Modal.confirm({
@@ -396,6 +397,7 @@ const JobTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('monitor:job:del')}
             onClick={async () => {
               Modal.confirm({

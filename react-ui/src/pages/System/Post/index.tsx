@@ -103,7 +103,7 @@ const handleRemoveOne = async (selectedRow: API.System.Post) => {
 /**
  * 导出数据
  *
- * 
+ *
  */
 const handleExport = async () => {
   const hide = message.loading('正在导出');
@@ -121,7 +121,7 @@ const handleExport = async () => {
 
 
 const PostTableList: React.FC = () => {
-  const formTableRef = useRef<FormInstance>();  
+  const formTableRef = useRef<FormInstance>();
 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
@@ -142,7 +142,7 @@ const PostTableList: React.FC = () => {
     });
   }, []);
 
-  const columns: ProColumns<API.System.Post>[] = [  
+  const columns: ProColumns<API.System.Post>[] = [
     {
       title: <FormattedMessage id="system.post.post_id" defaultMessage="岗位编号" />,
       dataIndex: 'postId',
@@ -249,7 +249,8 @@ const PostTableList: React.FC = () => {
             </Button>,
             <Button
               type="primary"
-              key="remove"              
+              key="remove"
+              danger
               hidden={selectedRows?.length === 0 || !access.hasPerms('system:post:remove')}
               onClick={async () => {
                 Modal.confirm({
@@ -264,7 +265,7 @@ const PostTableList: React.FC = () => {
                     }
                   },
                   onCancel() {},
-                }); 
+                });
               }}
             >
               <DeleteOutlined />
@@ -312,6 +313,7 @@ const PostTableList: React.FC = () => {
         >
           <Button
             key="remove"
+            danger
             hidden={!access.hasPerms('system:post:del')}
             onClick={async () => {
               Modal.confirm({

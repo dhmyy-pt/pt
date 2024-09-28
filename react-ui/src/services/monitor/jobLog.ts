@@ -1,8 +1,9 @@
-import { request } from '@umijs/max'; 
+import { request } from '@umijs/max';
+import { downLoadXlsx } from '@/utils/downloadfile';
 
 /**
  * 定时任务调度日志 API
- * 
+ *
  * @author whiteshader
  * @date 2023-02-07
  */
@@ -17,7 +18,7 @@ export async function getJobLogList(params?: API.Monitor.JobLogListParams) {
     params
   });
 }
- 
+
 
 // 删除定时任务调度日志
 export async function removeJobLog(jobLogId: string) {
@@ -34,9 +35,6 @@ export function cleanJobLog() {
 }
 
 // 导出定时任务调度日志
-export function exportJobLog(params?: API.Monitor.JobLogListParams) { 
-  return request<API.Result>(`/api/schedule/job/log/export`, {
-    method: 'GET',
-    params
-  });
+export function exportJobLog(params?: API.Monitor.JobLogListParams) {
+  return downLoadXlsx(`/api/monitor/jobLog/export`, { params }, `joblog_${new Date().getTime()}.xlsx`);
 }
