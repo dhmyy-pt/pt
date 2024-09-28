@@ -27,6 +27,7 @@ target/
 
 ### JRebel ###
 rebel.xml
+
 ### NetBeans ###
 nbproject/private/
 build/*
@@ -44,11 +45,3 @@ nbdist/
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
-
-######################################################################
-# Files used by docker containers
-docker/ruoyi/**/*.jar
-docker/mysql/data
-docker/mysql/db/*.sql
-docker/redis/data
-docker/nacos/logs
