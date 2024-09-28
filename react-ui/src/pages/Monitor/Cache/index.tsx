@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Row, Table } from 'antd';
-
+import { DataItem } from '@antv/g2plot/esm/interface/config';
+import { Gauge, Pie } from '@ant-design/plots';
 import styles from './index.less';
 import { getCacheInfo } from '@/services/monitor/cache';
 
@@ -9,7 +10,7 @@ import { getCacheInfo } from '@/services/monitor/cache';
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -56,32 +57,30 @@ const columns = [
   },
 ];
 
-// const usageFormatter = (val: string): string => {
-//   switch (val) {
-//     case '10':
-//       return '100%';
-//     case '8':
-//       return '80%';
-//     case '6':
-//       return '60%';
-//     case '4':
-//       return '40%';
-//     case '2':
-//       return '20%';
-//     case '0':
-//       return '0%';
-//     default:
-//       return '';
-//   }
-// };
-
-export interface VisitDataType {
-  x: string;
-  y: number;
-}
+const usageFormatter = (val: string): string => {
+  switch (val) {
+    case '10':
+      return '100%';
+    case '8':
+      return '80%';
+    case '6':
+      return '60%';
+    case '4':
+      return '40%';
+    case '2':
+      return '20%';
+    case '0':
+      return '0%';
+    default:
+      return '';
+  }
+};
 
 const CacheInfo: React.FC = () => {
   const [baseInfoData, setBaseInfoData] = useState<any>([]);
+  const [memUsage, setMemUsage] = useState<Number>(0);
+  const [memUsageTitle, setMemUsageTitle] = useState<any>([]);
+  const [cmdInfoData, setCmdInfoData] = useState<DataItem[]>([]);
   useEffect(() => {
     getCacheInfo().then((res) => {
       if (res.code === 200) {
@@ -118,16 +117,16 @@ const CacheInfo: React.FC = () => {
         });
         setBaseInfoData(baseinfo);
 
-        // const data: VisitDataType[] = res.data.commandStats.map((item) => {
-        //   return {
-        //     x: item.name,
-        //     y: Number(item.value),
-        //   };
-        // });
+        const data: VisitDataType[] = res.data.commandStats.map((item) => {
+          return {
+            x: item.name,
+            y: Number(item.value),
+          };
+        });
 
-        // setCmdInfoData(data);
-        // setMemUsageTitle(res.data.info.used_memory_human);
-        // setMemUsage(res.data.info.used_memory / res.data.info.total_system_memory);
+        setCmdInfoData(data);
+        setMemUsageTitle(res.data.info.used_memory_human);
+        setMemUsage(res.data.info.used_memory / res.data.info.total_system_memory);
       }
     });
   }, []);
@@ -149,11 +148,49 @@ const CacheInfo: React.FC = () => {
       </Row>
       <Row gutter={[24, 24]}>
         <Col span={12}>
-          <Card title="命令统计" className={styles.card}> 
+          <Card title="命令统计" className={styles.card}>
+            <Pie
+              height={320}
+              radius={0.8}
+              innerRadius={0.5}
+              angleField="y"
+              colorField="x"
+              data={cmdInfoData as any}
+              legend={false}
+              label={{
+                position: 'spider',
+                text: (item: { x: number; y: number }) => {
+                  return `${item.x}: ${item.y}`;
+                },
+              }}
+            />
           </Card>
         </Col>
         <Col span={12}>
-          <Card title="内存信息" className={styles.card}> 
+          <Card title="内存信息" className={styles.card}>
+            <Gauge
+              title={memUsageTitle}
+              height={320}
+              percent={memUsage}
+              formatter={usageFormatter}
+              padding={-16}
+              style={{
+                textContent: () => { return memUsage.toFixed(2).toString() + '%'},
+              }}
+              data={
+                {
+                  target: memUsage,
+                  total: 100,
+                  name: 'score',
+                  thresholds: [20, 40, 60, 80, 100],
+                } as any
+              }
+              meta={{
+                color: {
+                  range: ['#C3F71F', '#B5E61D', '#FFC90E', '#FF7F27', '#FF2518'],
+                },
+              }}
+            />
           </Card>
         </Col>
       </Row>
