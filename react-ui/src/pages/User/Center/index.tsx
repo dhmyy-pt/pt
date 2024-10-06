@@ -107,17 +107,6 @@ const Center: React.FC = () => {
           </div>
           <div>{email}</div>
         </List.Item>
-        <List.Item>
-          <div>
-            <ClusterOutlined
-              style={{
-                marginRight: 8,
-              }}
-            />
-            部门
-          </div>
-          <div>{dept?.deptName}</div>
-        </List.Item>
       </List>
     );
   };

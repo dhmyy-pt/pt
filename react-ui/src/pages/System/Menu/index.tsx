@@ -308,6 +308,9 @@ const MenuTableList: React.FC = () => {
       )}
       <UpdateForm
         onSubmit={async (values) => {
+
+           console.log('🚀 提交时的数据:', values); // ✅ 打印封装好的数据
+
           let success = false;
           if (values.menuId) {
             success = await handleUpdate({ ...values } as API.System.Menu);

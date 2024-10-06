@@ -10,7 +10,6 @@ import UpdateForm from './edit';
 import { getDictValueEnum } from '@/services/system/dict';
 import { DataNode } from 'antd/es/tree';
 import { getDeptTree } from '@/services/system/user';
-import DeptTree from './components/DeptTree';
 import ResetPwd from './components/ResetPwd';
 import { getPostList } from '@/services/system/post';
 import { getRoleList } from '@/services/system/role';
@@ -99,24 +98,6 @@ const handleRemoveOne = async (selectedRow: API.System.User) => {
   }
 };
 
-/**
- * 导出数据
- *
- *
- */
-const handleExport = async () => {
-  const hide = message.loading('正在导出');
-  try {
-    await exportUser();
-    hide();
-    message.success('导出成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('导出失败，请重试');
-    return false;
-  }
-};
 
 const UserTableList: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -131,7 +112,6 @@ const UserTableList: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<API.System.User>();
   const [selectedRows, setSelectedRows] = useState<API.System.User[]>([]);
 
-  const [selectDept, setSelectDept] = useState<any>({ id: 0 });
   const [sexOptions, setSexOptions] = useState<any>([]);
   const [statusOptions, setStatusOptions] = useState<any>([]);
 
@@ -334,20 +314,8 @@ const UserTableList: React.FC = () => {
   return (
     <PageContainer>
       {contextHolder}
-      <Row gutter={[16, 24]}>
-        <Col lg={6} md={24}>
-          <Card>
-            <DeptTree
-              onSelect={async (value: any) => {
-                setSelectDept(value);
-                if (actionRef.current) {
-                  formTableRef?.current?.submit();
-                }
-              }}
-            />
-          </Card>
-        </Col>
-        <Col lg={18} md={24}>
+      <Row gutter={[16, 24]}>    
+        <Col lg={24} md={24}>
           <ProTable<API.System.User>
             headerTitle={intl.formatMessage({
               id: 'pages.searchTable.title',
@@ -422,20 +390,10 @@ const UserTableList: React.FC = () => {
                 <DeleteOutlined />
                 <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
               </Button>,
-              <Button
-                type="primary"
-                key="export"
-                hidden={!access.hasPerms('system:user:export')}
-                onClick={async () => {
-                  handleExport();
-                }}
-              >
-                <PlusOutlined />
-                <FormattedMessage id="pages.searchTable.export" defaultMessage="导出" />
-              </Button>,
+             
             ]}
             request={(params) =>
-              getUserList({ ...params, deptId: selectDept.id } as API.System.UserListParams).then((res) => {
+              getUserList({ ...params} as API.System.UserListParams).then((res) => {
                 const result = {
                   data: res.rows,
                   total: res.total,

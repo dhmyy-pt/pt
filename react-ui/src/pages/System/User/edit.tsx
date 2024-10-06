@@ -46,8 +46,6 @@ const UserForm: React.FC<UserFormProps> = (props) => {
     form.resetFields();
     form.setFieldsValue({
       userId: props.values.userId,
-      deptId: props.values.deptId,
-      postIds: props.postIds,
       roleIds: props.roleIds,
       userName: props.values.userName,
       nickName: props.values.nickName,
@@ -105,26 +103,6 @@ const UserForm: React.FC<UserFormProps> = (props) => {
               required: true,
               message: (
                 <FormattedMessage id="请输入用户昵称！" defaultMessage="请输入用户昵称！" />
-              ),
-            },
-          ]}
-        />
-        <ProFormTreeSelect
-          name="deptId"
-          label={intl.formatMessage({
-            id: 'system.user.dept_name',
-            defaultMessage: '部门',
-          })}
-          request={async () => {
-            return depts;
-          }}
-          placeholder="请输入用户部门"
-          colProps={{ md: 12, xl: 12 }}
-          rules={[
-            {
-              required: true,
-              message: (
-                <FormattedMessage id="请输入用户部门！" defaultMessage="请输入用户部门！" />
               ),
             },
           ]}
@@ -231,18 +209,6 @@ const UserForm: React.FC<UserFormProps> = (props) => {
               ),
             },
           ]}
-        />
-        <ProFormSelect
-          name="postIds"
-          mode="multiple"
-          label={intl.formatMessage({
-            id: 'system.user.post',
-            defaultMessage: '岗位',
-          })}
-          options={posts}
-          placeholder="请选择岗位"
-          colProps={{ md: 12, xl: 12 }}
-          rules={[{ required: true, message: '请选择岗位!' }]}
         />
         <ProFormSelect
           name="roleIds"

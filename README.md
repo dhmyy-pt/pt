@@ -2,7 +2,7 @@
 
 项目链接：https://gitee.com/whiteshader/ruoyi-react
 
-相关项目：https://gitee.com/whiteshader/ruoyi-cloud-vben
+微服务分支：https://gitee.com/whiteshader/ruoyi-react/tree/spring-cloud-v3/
 
 若依(Ruoyi-React)是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。
 
@@ -46,9 +46,9 @@ https://gitee.com/whiteshader/ruoyi-cloud-vben/blob/master/ruoyi-react-demo-2023
 
 Node：建议v16或以上
 
-安装依赖请支行：pnpm i
+安装依赖请支行：npm i
 
-正常启动请运行: pnpm run dev
+正常启动请运行: npm run dev
 
 Mock测试模式请运行: npm run start
 
