@@ -45,3 +45,13 @@ nbdist/
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
+
+
+#####
+.vscode
+README.md
+ry.bat
+ry.sh
+.github
+react-ui/
+doc/

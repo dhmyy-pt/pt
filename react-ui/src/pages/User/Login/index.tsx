@@ -23,6 +23,9 @@ import React, { useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { clearSessionToken, setSessionToken } from '@/access';
 
+import { register } from '@/services/system/auth';
+
+
 const ActionIcons = () => {
   const langClassName = useEmotionCss(({ token }) => {
     return {
@@ -85,7 +88,7 @@ const LoginMessage: React.FC<{
 };
 
 const Login: React.FC = () => {
-  const [userLoginState, setUserLoginState] = useState<API.LoginResult>({code: 200});
+  const [userLoginState, setUserLoginState] = useState<API.LoginResult>({ code: 200 });
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
   const [captchaCode, setCaptchaCode] = useState<string>('');
@@ -124,8 +127,24 @@ const Login: React.FC = () => {
     }
   };
 
+
+
   const handleSubmit = async (values: API.LoginParams) => {
     try {
+      if (type === 'register') {
+        // 调用注册接口
+        const response = await register({ ...values, uuid });
+        if (response.code === 200) {
+          message.success('注册成功，请登录');
+          setType('account'); // 切换回登录 tab
+          getCaptchaCode(); // 刷新验证码
+        } else {
+          message.error(response.msg || '注册失败');
+          getCaptchaCode();
+        }
+        return;
+      }
+
       // 登录
       const response = await login({ ...values, uuid });
       if (response.code === 200) {
@@ -198,6 +217,11 @@ const Login: React.FC = () => {
           onFinish={async (values) => {
             await handleSubmit(values as API.LoginParams);
           }}
+          submitter={{
+            searchConfig: {
+              submitText: type === 'register' ? '注册' : '登录',
+            },
+          }}
         >
           <Tabs
             activeKey={type}
@@ -211,7 +235,14 @@ const Login: React.FC = () => {
                   defaultMessage: '账户密码登录',
                 }),
               },
-              
+              {
+                key: 'register',
+                label: intl.formatMessage({
+                  id: 'pages.register.tab',
+                  defaultMessage: '注册新账户',
+                }),
+              },
+
             ]}
           />
 
@@ -219,7 +250,7 @@ const Login: React.FC = () => {
             <LoginMessage
               content={intl.formatMessage({
                 id: 'pages.login.accountLogin.errorMessage',
-                defaultMessage: '账户或密码错误(admin/admin123)',
+                defaultMessage: '账户或密码错误()',
               })}
             />
           )}
@@ -227,14 +258,14 @@ const Login: React.FC = () => {
             <>
               <ProFormText
                 name="username"
-                initialValue="admin"
+                initialValue=""
                 fieldProps={{
                   size: 'large',
                   prefix: <UserOutlined />,
                 }}
                 placeholder={intl.formatMessage({
                   id: 'pages.login.username.placeholder',
-                  defaultMessage: '用户名: admin',
+                  defaultMessage: '用户名',
                 })}
                 rules={[
                   {
@@ -250,7 +281,7 @@ const Login: React.FC = () => {
               />
               <ProFormText.Password
                 name="password"
-                initialValue="admin123"
+                initialValue=""
                 fieldProps={{
                   size: 'large',
                   prefix: <LockOutlined />,
@@ -315,88 +346,73 @@ const Login: React.FC = () => {
           )}
 
           {code !== 200 && loginType === 'mobile' && <LoginMessage content="验证码错误" />}
-          {type === 'mobile' && (
+
+          {type === 'register' && (
             <>
               <ProFormText
+                name="username"
                 fieldProps={{
                   size: 'large',
-                  prefix: <MobileOutlined />,
+                  prefix: <UserOutlined />,
                 }}
-                name="mobile"
-                placeholder={intl.formatMessage({
-                  id: 'pages.login.phoneNumber.placeholder',
-                  defaultMessage: '手机号',
-                })}
-                rules={[
-                  {
-                    required: true,
-                    message: (
-                      <FormattedMessage
-                        id="pages.login.phoneNumber.required"
-                        defaultMessage="请输入手机号！"
-                      />
-                    ),
-                  },
-                  {
-                    pattern: /^1\d{10}$/,
-                    message: (
-                      <FormattedMessage
-                        id="pages.login.phoneNumber.invalid"
-                        defaultMessage="手机号格式错误！"
-                      />
-                    ),
-                  },
-                ]}
+                placeholder="请输入用户名"
+                rules={[{ required: true, message: '请输入用户名' }]}
               />
-              <ProFormCaptcha
+              <ProFormText.Password
+                name="password"
                 fieldProps={{
                   size: 'large',
                   prefix: <LockOutlined />,
                 }}
-                captchaProps={{
-                  size: 'large',
-                }}
-                placeholder={intl.formatMessage({
-                  id: 'pages.login.captcha.placeholder',
-                  defaultMessage: '请输入验证码',
-                })}
-                captchaTextRender={(timing, count) => {
-                  if (timing) {
-                    return `${count} ${intl.formatMessage({
-                      id: 'pages.getCaptchaSecondText',
-                      defaultMessage: '获取验证码',
-                    })}`;
-                  }
-                  return intl.formatMessage({
-                    id: 'pages.login.phoneLogin.getVerificationCode',
-                    defaultMessage: '获取验证码',
-                  });
-                }}
-                name="captcha"
-                rules={[
-                  {
-                    required: true,
-                    message: (
-                      <FormattedMessage
-                        id="pages.login.captcha.required"
-                        defaultMessage="请输入验证码！"
-                      />
-                    ),
-                  },
-                ]}
-                onGetCaptcha={async (phone) => {
-                  const result = await getFakeCaptcha({
-                    phone,
-                  });
-                  if (!result) {
-                    return;
-                  }
-                  message.success('获取验证码成功');
-                }}
+                placeholder="请输入密码"
+                rules={[{ required: true, message: '请输入密码' }]}
               />
+              <ProFormText.Password
+                name="confirmPassword"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <LockOutlined />,
+                }}
+                placeholder="请确认密码"
+                rules={[
+                  { required: true, message: '请确认密码' },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue('password') === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('两次输入的密码不一致!'));
+                    },
+                  }),
+                ]}
+              />
+              <Row>
+                <Col flex={3}>
+                  <ProFormText
+                    name="code"
+                    placeholder="验证码"
+                    rules={[{ required: true, message: '请输入验证码' }]}
+                  />
+                </Col>
+                <Col flex={2}>
+                  <Image
+                    src={captchaCode}
+                    alt="验证码"
+                    style={{
+                      display: 'inline-block',
+                      verticalAlign: 'top',
+                      cursor: 'pointer',
+                      paddingLeft: '10px',
+                      width: '100px',
+                    }}
+                    preview={false}
+                    onClick={() => getCaptchaCode()}
+                  />
+                </Col>
+              </Row>
             </>
           )}
-          
+
         </LoginForm>
       </div>
       <Footer />

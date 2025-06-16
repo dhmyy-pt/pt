@@ -37,3 +37,16 @@ export async function logout() {
 export async function getMobileCaptcha(mobile: string) {
   return request(`/api/login/captcha?mobile=${mobile}`);
 }
+
+
+export async function register(body: API.LoginParams, options?: Record<string, any>) {
+  return request('/api/login/register', {
+    method: 'POST',
+    headers: {
+      isToken: false,
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
