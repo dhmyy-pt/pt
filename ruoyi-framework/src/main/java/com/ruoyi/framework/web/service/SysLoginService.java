@@ -1,6 +1,7 @@
 package com.ruoyi.framework.web.service;
 
-import javax.annotation.Resource;
+import com.ruoyi.common.utils.SecurityUtils;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -51,6 +52,17 @@ public class SysLoginService
 
     @Autowired
     private ISysConfigService configService;
+
+
+    public void register(String username, String password,String code, String uuid )
+    {
+        validateCaptcha(username, code, uuid);
+        SysUser user = new SysUser();
+        user.setUserName(username);
+        user.setPassword(SecurityUtils.encryptPassword(password));
+        user.setRoleId(2L);
+        userService.insertUser(user);
+    }
 
     /**
      * 登录验证
