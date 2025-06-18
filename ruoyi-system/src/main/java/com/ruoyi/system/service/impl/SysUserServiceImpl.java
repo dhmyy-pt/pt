@@ -3,7 +3,7 @@ package com.ruoyi.system.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.validation.Validator;
+import jakarta.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -344,14 +344,14 @@ public class SysUserServiceImpl implements ISysUserService
     /**
      * 修改用户头像
      * 
-     * @param userId 用户ID
+     * @param userName 用户名
      * @param avatar 头像地址
      * @return 结果
      */
     @Override
-    public boolean updateUserAvatar(Long userId, String avatar)
+    public boolean updateUserAvatar(String userName, String avatar)
     {
-        return userMapper.updateUserAvatar(userId, avatar) > 0;
+        return userMapper.updateUserAvatar(userName, avatar) > 0;
     }
 
     /**
@@ -369,14 +369,14 @@ public class SysUserServiceImpl implements ISysUserService
     /**
      * 重置用户密码
      * 
-     * @param userId 用户ID
+     * @param userName 用户名
      * @param password 密码
      * @return 结果
      */
     @Override
-    public int resetUserPwd(Long userId, String password)
+    public int resetUserPwd(String userName, String password)
     {
-        return userMapper.resetUserPwd(userId, password);
+        return userMapper.resetUserPwd(userName, password);
     }
 
     /**
