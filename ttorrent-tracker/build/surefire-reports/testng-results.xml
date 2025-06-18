@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="5" passed="5">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Command line suite" duration-ms="1040" started-at="2025-06-11T16:53:23Z" finished-at="2025-06-11T16:53:24Z">
+    <groups>
+    </groups>
+    <test name="Command line test" duration-ms="1040" started-at="2025-06-11T16:53:23Z" finished-at="2025-06-11T16:53:24Z">
+      <class name="com.turn.ttorrent.tracker.MultiAnnounceRequestProcessorTest">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.turn.ttorrent.tracker.MultiAnnounceRequestProcessorTest@215be6bb]" name="setUp" is-config="true" duration-ms="209" started-at="2025-06-12T00:53:23Z" finished-at="2025-06-12T00:53:23Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="processCorrectTest()[pri:0, instance:com.turn.ttorrent.tracker.MultiAnnounceRequestProcessorTest@215be6bb]" name="processCorrectTest" duration-ms="797" started-at="2025-06-12T00:53:23Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- processCorrectTest -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.turn.ttorrent.tracker.MultiAnnounceRequestProcessorTest@215be6bb]" name="tearDown" is-config="true" duration-ms="1" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.turn.ttorrent.tracker.MultiAnnounceRequestProcessorTest -->
+      <class name="com.turn.ttorrent.tracker.TorrentsRepositoryTest">
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.turn.ttorrent.tracker.TorrentsRepositoryTest@4de8b406]" name="tearDown" is-config="true" duration-ms="0" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="PASS" signature="testPutIfAbsentAndUpdate()[pri:0, instance:com.turn.ttorrent.tracker.TorrentsRepositoryTest@4de8b406]" name="testPutIfAbsentAndUpdate" duration-ms="0" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPutIfAbsentAndUpdate -->
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.turn.ttorrent.tracker.TorrentsRepositoryTest@4de8b406]" name="setUp" is-config="true" duration-ms="0" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="testThatCleanupDontLockAllTorrentsAndStorage()[pri:0, instance:com.turn.ttorrent.tracker.TorrentsRepositoryTest@4de8b406]" name="testThatCleanupDontLockAllTorrentsAndStorage" duration-ms="16" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testThatCleanupDontLockAllTorrentsAndStorage -->
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.turn.ttorrent.tracker.TorrentsRepositoryTest@4de8b406]" name="setUp" is-config="true" duration-ms="0" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.turn.ttorrent.tracker.TorrentsRepositoryTest@4de8b406]" name="tearDown" is-config="true" duration-ms="0" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.turn.ttorrent.tracker.TorrentsRepositoryTest@4de8b406]" name="setUp" is-config="true" duration-ms="0" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="testThatTorrentsCanRemovedFromStorage()[pri:0, instance:com.turn.ttorrent.tracker.TorrentsRepositoryTest@4de8b406]" name="testThatTorrentsCanRemovedFromStorage" duration-ms="2" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testThatTorrentsCanRemovedFromStorage -->
+        <test-method status="PASS" signature="testThatTorrentsStoredInRepository()[pri:0, instance:com.turn.ttorrent.tracker.TorrentsRepositoryTest@4de8b406]" name="testThatTorrentsStoredInRepository" duration-ms="1" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testThatTorrentsStoredInRepository -->
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.turn.ttorrent.tracker.TorrentsRepositoryTest@4de8b406]" name="setUp" is-config="true" duration-ms="0" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.turn.ttorrent.tracker.TorrentsRepositoryTest@4de8b406]" name="tearDown" is-config="true" duration-ms="0" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.turn.ttorrent.tracker.TorrentsRepositoryTest@4de8b406]" name="tearDown" is-config="true" duration-ms="0" started-at="2025-06-12T00:53:24Z" finished-at="2025-06-12T00:53:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.turn.ttorrent.tracker.TorrentsRepositoryTest -->
+    </test> <!-- Command line test -->
+  </suite> <!-- Command line suite -->
+</testng-results>

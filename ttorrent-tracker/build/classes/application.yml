@@ -1,0 +1,19 @@
+# Tomcat
+server:
+  port: 8086
+
+spring:
+  application:
+    name: tracker
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.146.134:3306/ry-vue?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.146.134:8848
+      username: nacos
+      password: Cnbm123456!
+
