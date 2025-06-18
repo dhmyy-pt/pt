@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="5" failures="0" name="TestSuite" time="0.815" errors="0" skipped="0">
+  <properties>
+    <property name="idea.version" value="2024.1.4"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="E:\javaJDK\jdk1.8.0_151\jre\bin"/>
+    <property name="java.vm.version" value="25.151-b12"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="maven.multiModuleProjectDirectory" value="G:\javaWorkSpace\ptService\ttorrent"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="G:\javaWorkSpace\ptService\ttorrent"/>
+    <property name="java.runtime.version" value="1.8.0_151-b12"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="E:\javaJDK\jdk1.8.0_151\jre\lib\endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="C:\Users\33216\AppData\Local\Temp\"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="maven.ext.class.path" value="E:\jetbrains-toolbox\programs\IntelliJ IDEA 2024.1.4\plugins\maven\lib\maven-event-listener.jar"/>
+    <property name="classworlds.conf" value="E:\javaJAR\apache-maven-3.3.9\bin\m2.conf"/>
+    <property name="sun.jnu.encoding" value="GBK"/>
+    <property name="java.library.path" value="E:\javaJDK\jdk1.8.0_151\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;G:\practice\vmware\vmware\bin\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;E:\vagrant\Vagrant\bin;E:\javaJDK\jdk-17.0.1\bin;E:\database\Redis\;E:\database\Mysql\MySQL\MySQL Server 8.0\bin;E:\javaJAR\Git\cmd;E:\anaconda;E:\anaconda\Scripts;E:\anaconda\Library\bin;G:\practice\Xshell\;node_global;E:\nvm\nvm;E:\nvm\nvm4w\nodejs;E:\Windows Kits\10\Windows Performance Toolkit\;E:\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\bin\Hostx86\x86\;E:\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin;C:\Users\33216\AppData\Local\Microsoft\WindowsApps;node_global;E:\visualStudioCode\Microsoft VS Code\bin;E:\nvm\nvm;E:\nvm\nvm4w\nodejs;."/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="maven.repo.local" value="E:\javaJAR\apache-maven-3.3.9\maven-repository"/>
+    <property name="os.version" value="10.0"/>
+    <property name="user.home" value="C:\Users\33216"/>
+    <property name="user.timezone" value="Asia/Shanghai"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="user.name" value="33216"/>
+    <property name="java.class.path" value="E:\javaJAR\apache-maven-3.3.9\boot\plexus-classworlds-2.5.2.jar;E:\jetbrains-toolbox\programs\IntelliJ IDEA 2024.1.4\lib\idea_rt.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="E:\javaJDK\jdk1.8.0_151\jre"/>
+    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2024.1.4 -s E:\javaJAR\apache-maven-3.3.9\conf\settings.xml -Dmaven.repo.local=E:\javaJAR\apache-maven-3.3.9\maven-repository package"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="zh"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_151"/>
+    <property name="java.ext.dirs" value="E:\javaJDK\jdk1.8.0_151\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="E:\javaJDK\jdk1.8.0_151\jre\lib\resources.jar;E:\javaJDK\jdk1.8.0_151\jre\lib\rt.jar;E:\javaJDK\jdk1.8.0_151\jre\lib\sunrsasign.jar;E:\javaJDK\jdk1.8.0_151\jre\lib\jsse.jar;E:\javaJDK\jdk1.8.0_151\jre\lib\jce.jar;E:\javaJDK\jdk1.8.0_151\jre\lib\charsets.jar;E:\javaJDK\jdk1.8.0_151\jre\lib\jfr.jar;E:\javaJDK\jdk1.8.0_151\jre\classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="E:\javaJAR\apache-maven-3.3.9"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase classname="com.turn.ttorrent.tracker.MultiAnnounceRequestProcessorTest" name="processCorrectTest" time="0.797"/>
+  <testcase classname="com.turn.ttorrent.tracker.TorrentsRepositoryTest" name="testPutIfAbsentAndUpdate" time="0"/>
+  <testcase classname="com.turn.ttorrent.tracker.TorrentsRepositoryTest" name="testThatCleanupDontLockAllTorrentsAndStorage" time="0.016"/>
+  <testcase classname="com.turn.ttorrent.tracker.TorrentsRepositoryTest" name="testThatTorrentsCanRemovedFromStorage" time="0.002"/>
+  <testcase classname="com.turn.ttorrent.tracker.TorrentsRepositoryTest" name="testThatTorrentsStoredInRepository" time="0"/>
+</testsuite>
