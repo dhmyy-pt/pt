@@ -17,8 +17,7 @@ public class TorrentInfo {
     private String creator;
 
     private Integer seederCount;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date lastActive;
-
+    private Integer creatorId;
     private Integer categoryId;
+
 }
